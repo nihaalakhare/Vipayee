@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/braille_keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFefB"
+    tools:context=".activities.BalanceMpinActivity">
+
+    <TextView
+        android:id="@+id/brailleLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="312dp"
+        android:text="Braille Login"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pinDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="_ _ _ _"
+        android:textColor="@android:color/black"
+        android:textSize="55sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/brailleLogin" />
+
+    <View
+        android:id="@+id/dot1"
+        android:layout_width="178dp"
+        android:layout_height="258dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/yellow_card"
+        app:layout_constraintEnd_toStartOf="@id/dot3"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.45"
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/dot3"
+        android:layout_width="178dp"
+        android:layout_height="258dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/yellow_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintStart_toEndOf="@id/dot1"
+        app:layout_constraintTop_toTopOf="@id/dot1"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <View
+        android:id="@+id/dot2"
+        android:layout_width="178dp"
+        android:layout_height="258dp"
+        android:layout_marginTop="260dp"
+        android:background="@drawable/yellow_card"
+        app:layout_constraintEnd_toStartOf="@id/dot4"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dot1"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <View
+        android:id="@+id/dot4"
+        android:layout_width="178dp"
+        android:layout_height="258dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/yellow_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.22"
+        app:layout_constraintStart_toEndOf="@id/dot2"
+        app:layout_constraintTop_toTopOf="@id/dot2"
+        app:layout_constraintWidth_percent="0.45" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
