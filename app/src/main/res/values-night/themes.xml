@@ -9,7 +9,7 @@
         <!-- Ensure icons stay visible -->
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
-        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimary">@color/white</item>
