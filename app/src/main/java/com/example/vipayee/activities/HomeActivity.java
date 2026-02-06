@@ -38,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
             return;
         }
 
+
         gestureDetector = new GestureDetector(this, new SwipeListener());
         initTts();
         setupIdleWatcher();
@@ -54,6 +55,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+    private void stopTts() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+        }
+    }
+
 
     private void speakInstructions() {
         speak(
@@ -134,12 +141,14 @@ public class HomeActivity extends AppCompatActivity {
                         Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
 
                     if (diffX > 0) {
+                        stopTts();
                         startActivity(new Intent(
                                 HomeActivity.this,
                                 BalanceMpinActivity.class
                         ));
                         return true;
                     } else {
+                        stopTts();
                         startActivity(new Intent(
                                 HomeActivity.this,
                                 MiniStatementActivity.class
@@ -152,6 +161,7 @@ public class HomeActivity extends AppCompatActivity {
                         Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
 
                     if (diffY < 0) {
+                        stopTts();
                         startActivity(new Intent(
                                 HomeActivity.this,
                                 TransactionOptionActivity.class
@@ -175,6 +185,18 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        stopTts();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopTts();
+    }
+
+    @Override
     protected void onDestroy() {
         if (tts != null) {
             tts.stop();
@@ -183,4 +205,5 @@ public class HomeActivity extends AppCompatActivity {
         idleHandler.removeCallbacks(idleRunnable);
         super.onDestroy();
     }
+
 }
