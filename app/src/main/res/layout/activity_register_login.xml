@@ -3,27 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:padding="24dp"
+    android:gravity="center_vertical">
 
     <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="32dp"
+        android:text="Register"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="28dp"/>
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
 
     <!-- Mobile Number -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+
         app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@android:color/black"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="2dp"
+
+        app:boxStrokeErrorColor="@color/dark_red"
+        app:errorTextColor="@color/dark_red"
+        app:errorIconTint="@color/dark_red"
+        app:hintTextColor="@android:color/black"
+        app:errorEnabled="true"
+
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
@@ -34,15 +48,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mobile Number"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Customer ID -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCustId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+
         app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@android:color/black"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeWidthFocused="2dp"
+
+        app:boxStrokeErrorColor="@color/dark_red"
+        app:errorTextColor="@color/dark_red"
+        app:errorIconTint="@color/dark_red"
+        app:hintTextColor="@android:color/black"
+        app:errorEnabled="true"
+
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
@@ -53,15 +81,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Customer ID"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Continue Button -->
     <Button
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFEB00"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/yellow"
         android:text="Continue"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
@@ -69,42 +100,3 @@
         android:textStyle="bold" />
 
 </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:padding="24dp"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent">-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etMobile"-->
-<!--        android:hint="Mobile Number"-->
-<!--        android:inputType="phone"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etCustId"-->
-<!--        android:hint="Customer ID"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnContinue"-->
-<!--        android:text="Continue"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--</LinearLayout>-->

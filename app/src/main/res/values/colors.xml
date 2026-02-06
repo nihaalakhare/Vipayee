@@ -9,5 +9,8 @@
     <!--    <color name="grey" tools:ignore="ResourceCycle">@color/grey</color>-->
     <!--    <color name="purple">#6200EE</color>-->
     <color name="grey">#808080</color>
+    <color name="dark_red">#B00020</color>
+
+
 
 </resources>

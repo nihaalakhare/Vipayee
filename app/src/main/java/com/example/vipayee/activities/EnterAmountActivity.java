@@ -162,7 +162,7 @@ public class EnterAmountActivity extends AppCompatActivity {
         }
 
         session.saveLastTxnAmount(amount);
-        speak("Paying " + amount + " rupees. Enter MPIN.");
+        speak("Paying " + amount + " rupees. Enter M pin.");
 
         Intent intent = new Intent(this, MpinActivity.class);
         intent.putExtra(MpinActivity.EXTRA_MODE, MpinActivity.MODE_TRANSACTION);
