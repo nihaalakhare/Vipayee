@@ -10,11 +10,12 @@ import android.view.MotionEvent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.SessionManager;
 
 import java.util.Locale;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     private GestureDetector gestureDetector;
     private TextToSpeech tts;
@@ -23,9 +24,10 @@ public class HomeActivity extends AppCompatActivity {
     private Runnable idleRunnable;
 
     private static final long IDLE_TIME = 10_000; // 10 seconds
-    private static final int MAX_IDLE_SPEAK = 2;
+    private static final int MAX_IDLE_SPEAK = 3;
 
     private int idleSpeakCount = 0;
+    private boolean isHomeVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +82,16 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupIdleWatcher() {
         idleRunnable = () -> {
+
+            if (!isHomeVisible) return;
+
             idleSpeakCount++;
 
             if (idleSpeakCount <= MAX_IDLE_SPEAK) {
                 speakInstructions();
                 resetIdleTimer();
             } else {
-                expireSession();
+                // Let BaseActivity expire session globally
             }
         };
     }
@@ -95,11 +100,12 @@ public class HomeActivity extends AppCompatActivity {
         idleHandler.removeCallbacks(idleRunnable);
         idleHandler.postDelayed(idleRunnable, IDLE_TIME);
     }
-
     private void expireSession() {
         SessionManager session = new SessionManager(this);
         session.setLoggedIn(false);
 
+        // Speak only once, safely
+        stopTts();
         speak("Session expired. Please enter MPIN again.");
 
         idleHandler.removeCallbacks(idleRunnable);
@@ -179,16 +185,23 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        isHomeVisible = true;
+
         idleSpeakCount = 0;
         speakInstructions();
         resetIdleTimer();
     }
 
+
     @Override
     protected void onPause() {
         super.onPause();
+        isHomeVisible = false;
+
+        idleHandler.removeCallbacks(idleRunnable);
         stopTts();
     }
+
 
     @Override
     protected void onStop() {

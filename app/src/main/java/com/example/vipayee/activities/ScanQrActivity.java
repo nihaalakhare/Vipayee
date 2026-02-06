@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.SessionManager;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.barcode.*;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ScanQrActivity extends AppCompatActivity {
+public class ScanQrActivity extends BaseActivity {
 
     private static final String TAG = "MLKIT_QR";
     private static final int CAMERA_REQUEST = 1001;

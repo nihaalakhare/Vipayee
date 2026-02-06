@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.vipayee.AppConstants;
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -27,7 +28,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenerateQrActivity extends AppCompatActivity {
+public class GenerateQrActivity extends BaseActivity {
 
     private ImageView qrImage;
     private TextView tvUpiId;

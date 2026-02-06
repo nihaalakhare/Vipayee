@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 
 import java.util.Locale;
 
-public class BalanceResultActivity extends AppCompatActivity {
+public class CheckBalanceActivity extends BaseActivity {
 
     private TextToSpeech tts;
     private boolean isTtsReady = false;
@@ -19,7 +18,7 @@ public class BalanceResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_balance_result);
+        setContentView(R.layout.activity_check_balance);
 
         TextView tvBalanceResult = findViewById(R.id.tvBalanceResult);
 

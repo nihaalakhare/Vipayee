@@ -8,11 +8,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.SessionManager;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private TextInputEditText etMobile, etCustId;
     private TextInputLayout tilMobile, tilCustId;

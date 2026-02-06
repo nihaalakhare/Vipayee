@@ -20,6 +20,7 @@ import com.example.vipayee.AppConstants;
 import com.example.vipayee.R;
 import com.example.vipayee.api.ApiClient;
 import com.example.vipayee.crypto.GCMUtil;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.DeviceInfoUtil;
 import com.example.vipayee.utils.HeaderUtil;
 import com.example.vipayee.utils.SessionManager;
@@ -36,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EnterAmountActivity extends AppCompatActivity {
+public class EnterAmountActivity extends BaseActivity {
 
     private static final String TAG = "STAN_DEBUG";
     private static final String HARD_CODED_ENCRYPTED_PAYLOAD = AppConstants.stan_payload;

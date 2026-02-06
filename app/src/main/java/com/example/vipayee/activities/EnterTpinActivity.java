@@ -9,8 +9,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 
-public class EnterTpinActivity extends AppCompatActivity {
+public class EnterTpinActivity extends BaseActivity {
 
     private static final String HARDCODED_TPIN = "1234";
 

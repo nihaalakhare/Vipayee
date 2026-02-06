@@ -6,9 +6,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.SessionManager;
 
-public class PaymentSuccessActivity extends AppCompatActivity {
+public class PaymentSuccessActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

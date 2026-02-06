@@ -25,7 +25,7 @@
         <activity android:name=".activities.HomeActivity"/>
         <activity android:name=".activities.BalanceMpinActivity"/>
         <activity android:name=".activities.MiniStatementActivity"/>
-        <activity android:name=".activities.BalanceResultActivity"/>
+        <activity android:name=".activities.CheckBalanceActivity"/>
         <activity android:name=".activities.GenerateQrActivity"/>
         <activity android:name=".activities.EnterAmountActivity"/>
         <activity android:name=".activities.EnterTpinActivity" />

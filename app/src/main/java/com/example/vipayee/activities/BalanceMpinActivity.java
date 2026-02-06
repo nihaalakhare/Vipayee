@@ -19,6 +19,7 @@ import com.example.vipayee.AppConstants;
 import com.example.vipayee.R;
 import com.example.vipayee.api.ApiClient;
 import com.example.vipayee.crypto.GCMUtil;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.HeaderUtil;
 import com.example.vipayee.utils.SessionManager;
 
@@ -36,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BalanceMpinActivity extends AppCompatActivity {
+public class BalanceMpinActivity extends BaseActivity {
 
     private static final String TAG = "BALANCE_BRAILLE";
 
@@ -208,7 +209,7 @@ public class BalanceMpinActivity extends AppCompatActivity {
             String balanceText = table.optString("Balance", "");
             String withdrawableBalance = extractWithdrawableBalance(balanceText);
 
-            Intent intent = new Intent(this, BalanceResultActivity.class);
+            Intent intent = new Intent(this, CheckBalanceActivity.class);
             intent.putExtra("balance_text", withdrawableBalance);
             startActivity(intent);
             finish();

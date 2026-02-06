@@ -6,8 +6,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.vipayee.R;
+import com.example.vipayee.utils.BaseActivity;
 
-public class TransactionOptionActivity extends AppCompatActivity {
+public class TransactionOptionActivity extends BaseActivity {
 
     private GestureDetector gestureDetector;
 

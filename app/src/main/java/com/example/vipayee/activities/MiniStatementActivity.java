@@ -16,6 +16,7 @@ import com.example.vipayee.api.ApiClient;
 import com.example.vipayee.crypto.GCMUtil;
 import com.example.vipayee.model.MiniStatementAdapter;
 import com.example.vipayee.model.TransactionModel;
+import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.HeaderUtil;
 import com.example.vipayee.utils.SessionManager;
 
@@ -33,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MiniStatementActivity extends AppCompatActivity {
+public class MiniStatementActivity extends BaseActivity {
 
     private static final String TAG = "MINI_STATEMENT";
 
