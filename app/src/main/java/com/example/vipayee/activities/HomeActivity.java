@@ -57,9 +57,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private void speakInstructions() {
         speak(
-                "Swipe up for transactions. " +
-                        "Swipe left for mini statement. " +
-                        "Swipe right to check balance."
+                "Swipe up for transactions " +
+                        "Swipe left for mini statement " +
+                        "Swipe right to check balance"
         );
     }
 
