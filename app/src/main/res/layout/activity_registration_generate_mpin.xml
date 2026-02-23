@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etSecurityCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter PAN / Security Code"
+        android:inputType="textCapCharacters"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter MPIN"
+        android:inputType="numberPassword"
+        android:layout_marginTop="16dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etConfirmPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm MPIN"
+        android:inputType="numberPassword"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnGenerateMpin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate MPIN"
+        android:layout_marginTop="24dp"/>
+
+</LinearLayout>

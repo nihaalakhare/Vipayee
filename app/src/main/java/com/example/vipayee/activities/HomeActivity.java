@@ -4,16 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import org.json.JSONObject;
+import com.example.vipayee.AppConstants;
 import com.example.vipayee.R;
+import com.example.vipayee.api.ApiClient;
+import com.example.vipayee.crypto.GCMUtil;
 import com.example.vipayee.utils.BaseActivity;
+import com.example.vipayee.utils.DeviceInfoUtil;
+import com.example.vipayee.utils.HeaderUtil;
 import com.example.vipayee.utils.SessionManager;
 
 import java.util.Locale;
+import java.util.Map;
+
+
+import okhttp3.ResponseBody;
 
 public class HomeActivity extends BaseActivity {
 
@@ -35,11 +48,18 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         SessionManager session = new SessionManager(this);
+
         if (!session.isLoggedIn()) {
+            session.clearProfile();
             redirectToMpin();
             return;
         }
 
+        if (session.getProfileId() == null ||
+                session.getProfileId().isEmpty()) {
+
+            fetchProfile();
+        }
 
         gestureDetector = new GestureDetector(this, new SwipeListener());
         initTts();
@@ -95,7 +115,156 @@ public class HomeActivity extends BaseActivity {
             }
         };
     }
+    private void fetchProfile() {
 
+        try {
+
+            SessionManager session = new SessionManager(this);
+
+            String mobile = session.getMobile();
+            String custId = session.getCustId();
+
+            Map<String, String> headers =
+                    HeaderUtil.baseHeaders(
+                            DeviceInfoUtil.getDeviceInfo(this),
+                            AppConstants.getApiKey()
+                    );
+
+            headers.put("action", "GET_PROFILE");
+            headers.put("auth_token", session.getAuthToken());
+            HeaderUtil.addSecurityHeaders(headers);
+
+            ApiClient.create()
+                    .getProfile(mobile, custId, headers)
+                    .enqueue(new Callback<ResponseBody>() {
+
+                        @Override
+                        public void onResponse(
+                                @NonNull Call<ResponseBody> call,
+                                @NonNull Response<ResponseBody> response) {
+
+                            handleProfileResponse(response);
+                        }
+
+                        @Override
+                        public void onFailure(
+                                @NonNull Call<ResponseBody> call,
+                                @NonNull Throwable t) {
+
+                            Log.e("HOME", "Profile fetch failed", t);
+                        }
+                    });
+
+        } catch (Exception e) {
+            Log.e("HOME", "fetchProfile error", e);
+        }
+    }
+
+    private void handleProfileResponse(
+            retrofit2.Response<ResponseBody> response) {
+
+        try {
+
+            // ✅ Step 1: Basic HTTP validation
+            if (!response.isSuccessful() || response.body() == null) {
+                Log.e("HOME", "Profile API failed. Code: " + response.code());
+                return;
+            }
+
+            // ✅ Step 2: Read raw response
+            String raw = response.body().string();
+            Log.d("HOME", "PROFILE RAW: " + raw);
+
+            if (raw == null || raw.trim().isEmpty()) {
+                Log.e("HOME", "Empty profile response");
+                return;
+            }
+
+            // ✅ Step 3: Parse outer wrapper
+            JSONObject wrapper = new JSONObject(raw);
+
+            String outerResponseCode =
+                    wrapper.optString("response_code", "0");
+
+            if (!outerResponseCode.equals("1")) {
+                Log.e("HOME", "Outer response_code not 1: " + wrapper);
+                return;
+            }
+
+            // ✅ Step 4: Extract encrypted response
+            String encryptedResponse =
+                    wrapper.optString("response", null);
+
+            if (encryptedResponse == null ||
+                    encryptedResponse.isEmpty()) {
+
+                Log.e("HOME", "Encrypted response missing");
+                return;
+            }
+
+            // 🔐 Step 5: Decrypt AES response
+            String decrypted = GCMUtil.decrypt(
+                    encryptedResponse,
+                    AppConstants.getSecretKeyBytes()
+            );
+
+            Log.d("HOME", "PROFILE DECRYPTED: " + decrypted);
+
+            // ✅ Step 6: Parse decrypted JSON
+            JSONObject decryptedRoot =
+                    new JSONObject(decrypted);
+
+            String innerResponseCode =
+                    decryptedRoot.optString("response_code", "0");
+
+            if (!innerResponseCode.equals("1")) {
+                Log.e("HOME", "Inner response_code not 1");
+                return;
+            }
+
+            // 🔥 IMPORTANT: Go inside response → profile
+            JSONObject responseObj =
+                    decryptedRoot.getJSONObject("response");
+
+            JSONObject profile =
+                    responseObj.getJSONObject("profile");
+
+            // ✅ Step 7: Extract profile fields
+            String profileId = profile.optString("profileid");
+//            String custName = profile.optString("cust_name");
+            String clientType = profile.optString("client_type");
+            String orgElement = profile.optString("org_element");
+
+            JSONObject account =
+                    profile.getJSONObject("accounts")
+                            .getJSONArray("account")
+                            .getJSONObject(0);
+
+            String accNo = account.optString("acno");
+            String custName = profile.optString("cust_name");
+            String pan = account.optString("pan");
+            String ifsc = account.optString("ifsc_code");
+
+            // ✅ Step 8: Save into SessionManager
+            SessionManager session =
+                    new SessionManager(this);
+
+            session.saveProfileData(
+                    profileId,
+                    custName,
+                    accNo,
+                    pan,
+                    ifsc,
+                    clientType,
+                    orgElement
+            );
+
+            Log.d("HOME", "✅ Profile saved successfully");
+
+        } catch (Exception e) {
+            Log.e("HOME", "❌ Profile parse error", e);
+        }
+    }
     private void resetIdleTimer() {
         idleHandler.removeCallbacks(idleRunnable);
         idleHandler.postDelayed(idleRunnable, IDLE_TIME);

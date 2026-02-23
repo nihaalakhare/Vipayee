@@ -17,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private static final long GLOBAL_IDLE_TIMEOUT = 30_000; // 30 seconds
     private final Handler idleHandler = new Handler(Looper.getMainLooper());
-
+    private final Handler handler = new Handler();
     private TextToSpeech tts;
 
     private final Runnable expireRunnable = this::expireSession;
@@ -33,6 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         resetGlobalIdleTimer();
     }
+
 
     @Override
     protected void onPause() {
@@ -78,4 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }, 2000); // 2 seconds
     }
+
+
+
 }

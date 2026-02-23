@@ -43,6 +43,7 @@ public class GCMUtil {
 
 
 
+
 //    public static String encrypt(String plain, byte[] key) throws Exception {
 //
 //        Cipher cipher = Cipher.getInstance(GCM_NO_PADDING);

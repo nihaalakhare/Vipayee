@@ -22,6 +22,15 @@ public class SessionManager {
     private static final String KEY_LAST_LOGIN_TS = "LAST_LOGIN_TS";
     private static final String KEY_LAST_NONCE = "LAST_NONCE";
 
+    /* ================= PROFILE ================= */
+    private static final String KEY_PROFILE_ID = "PROFILE_ID";
+    private static final String KEY_CUST_NAME = "CUST_NAME";
+    private static final String KEY_PRIMARY_ACC_NO = "PRIMARY_ACC_NO";
+    private static final String KEY_PAN = "PAN";
+    private static final String KEY_IFSC = "IFSC";
+    private static final String KEY_CLIENT_TYPE = "CLIENT_TYPE";
+    private static final String KEY_ORG_ELEMENT = "ORG_ELEMENT";
+
     /* ================= UPI ================= */
     private static final String KEY_UPI_PA = "UPI_PA";
     private static final String KEY_UPI_PN = "UPI_PN";
@@ -37,16 +46,15 @@ public class SessionManager {
         prefs = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
     }
 
-    /* --------------------------------------------------
-       LOGIN
-    -------------------------------------------------- */
+    /* =====================================================
+       LOGIN DATA
+    ===================================================== */
 
     public void saveLoginData(String mobile, String custId, String loginType) {
         prefs.edit()
                 .putString(KEY_MOBILE, mobile)
                 .putString(KEY_CUSTID, custId)
                 .putString(KEY_LOGIN_TYPE, loginType)
-                .putBoolean(KEY_IS_REGISTERED, true)
                 .apply();
     }
 
@@ -62,9 +70,25 @@ public class SessionManager {
         return prefs.getString(KEY_LOGIN_TYPE, "0");
     }
 
-    /* --------------------------------------------------
-       AUTH
-    -------------------------------------------------- */
+    /* =====================================================
+       REGISTRATION STATE
+    ===================================================== */
+
+    public void setRegistered(boolean value) {
+        prefs.edit()
+                .putBoolean(KEY_IS_REGISTERED, value)
+                .apply();
+    }
+
+    public boolean isRegistered() {
+        return prefs.getBoolean(KEY_IS_REGISTERED, false)
+                && !getMobile().isEmpty()
+                && !getCustId().isEmpty();
+    }
+
+    /* =====================================================
+       AUTH SESSION
+    ===================================================== */
 
     public void saveAuthToken(String token) {
         prefs.edit().putString(KEY_AUTH_TOKEN, token).apply();
@@ -73,28 +97,11 @@ public class SessionManager {
     public String getAuthToken() {
         return prefs.getString(KEY_AUTH_TOKEN, null);
     }
-    public void clearUpiDetails() {
-        prefs.edit()
-                .remove(KEY_UPI_PA)
-                .remove(KEY_UPI_PN)
-                .apply();
-    }
-    public void clearLastTxnAmount() {
-        prefs.edit()
-                .remove(KEY_LAST_TXN_AMOUNT)
-                .apply();
-    }
-    public boolean isRegistered() {
-        return prefs.getBoolean(KEY_IS_REGISTERED, false)
-                && !getMobile().isEmpty()
-                && !getCustId().isEmpty();
-    }
 
     public void setLoggedIn(boolean value) {
         prefs.edit().putBoolean(KEY_IS_LOGGED_IN, value).apply();
     }
 
-    /** ✅ FIXED: prevents empty-token false login */
     public boolean isLoggedIn() {
         String token = getAuthToken();
         return prefs.getBoolean(KEY_IS_LOGGED_IN, false)
@@ -102,9 +109,73 @@ public class SessionManager {
                 && !token.trim().isEmpty();
     }
 
-    /* --------------------------------------------------
-       DEVICE / SECURITY
-    -------------------------------------------------- */
+    /* =====================================================
+       PROFILE DATA
+    ===================================================== */
+
+    public void saveProfileData(
+            String profileId,
+            String custName,
+            String accNo,
+            String pan,
+            String ifsc,
+            String clientType,
+            String orgElement) {
+
+        prefs.edit()
+                .putString(KEY_PROFILE_ID, profileId)
+                .putString(KEY_CUST_NAME, custName)
+                .putString(KEY_PRIMARY_ACC_NO, accNo)
+                .putString(KEY_PAN, pan)
+                .putString(KEY_IFSC, ifsc)
+                .putString(KEY_CLIENT_TYPE, clientType)
+                .putString(KEY_ORG_ELEMENT, orgElement)
+                .apply();
+    }
+
+    public String getProfileId() {
+        return prefs.getString(KEY_PROFILE_ID, "");
+    }
+
+    public String getCustName() {
+        return prefs.getString(KEY_CUST_NAME, "");
+    }
+
+    public String getPrimaryAccNo() {
+        return prefs.getString(KEY_PRIMARY_ACC_NO, "");
+    }
+
+    public String getPan() {
+        return prefs.getString(KEY_PAN, "");
+    }
+
+    public String getIfsc() {
+        return prefs.getString(KEY_IFSC, "");
+    }
+
+    public String getClientType() {
+        return prefs.getString(KEY_CLIENT_TYPE, "");
+    }
+
+    public String getOrgElement() {
+        return prefs.getString(KEY_ORG_ELEMENT, "");
+    }
+
+    public void clearProfile() {
+        prefs.edit()
+                .remove(KEY_PROFILE_ID)
+                .remove(KEY_CUST_NAME)
+                .remove(KEY_PRIMARY_ACC_NO)
+                .remove(KEY_PAN)
+                .remove(KEY_IFSC)
+                .remove(KEY_CLIENT_TYPE)
+                .remove(KEY_ORG_ELEMENT)
+                .apply();
+    }
+
+    /* =====================================================
+       DEVICE
+    ===================================================== */
 
     public void saveDeviceInfo(String deviceInfo) {
         prefs.edit().putString(KEY_DEVICE_INFO, deviceInfo).apply();
@@ -122,9 +193,9 @@ public class SessionManager {
         prefs.edit().putLong(KEY_LAST_LOGIN_TS, timestamp).apply();
     }
 
-    /* --------------------------------------------------
+    /* =====================================================
        UPI
-    -------------------------------------------------- */
+    ===================================================== */
 
     public void saveUpiDetails(String pa, String pn) {
         prefs.edit()
@@ -141,15 +212,21 @@ public class SessionManager {
         return prefs.getString(KEY_UPI_PN, "");
     }
 
-    /* --------------------------------------------------
+    public void clearUpiDetails() {
+        prefs.edit()
+                .remove(KEY_UPI_PA)
+                .remove(KEY_UPI_PN)
+                .apply();
+    }
+
+    /* =====================================================
        TRANSACTION
-    -------------------------------------------------- */
+    ===================================================== */
 
     public void saveLastTxnAmount(String amount) {
         prefs.edit().putString(KEY_LAST_TXN_AMOUNT, amount).apply();
     }
 
-    /** ✅ FIXED: null means “no active transaction” */
     public String getLastTxnAmount() {
         return prefs.getString(KEY_LAST_TXN_AMOUNT, null);
     }
@@ -177,9 +254,9 @@ public class SessionManager {
                 .apply();
     }
 
-    /* --------------------------------------------------
-       CLEAR
-    -------------------------------------------------- */
+    /* =====================================================
+       FULL CLEAR (LOGOUT)
+    ===================================================== */
 
     public void clear() {
         prefs.edit().clear().apply();

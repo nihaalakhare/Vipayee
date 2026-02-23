@@ -1,23 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-<!--     Base application theme. -->
-    <style name="Base.Theme.Vipayee" parent="Theme.Material3.DayNight.NoActionBar">
 
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-        <!-- Navigation bar -->
+    <style name="Theme.Vipayee" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/vipayee_primary</item>
+        <!-- System bars -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <!-- Ensure icons stay visible -->
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <!-- Dark mode → light icons disabled -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar"
+            tools:targetApi="27">false</item>
 
-        <item name="android:forceDarkAllowed" tools:targetApi="29">true</item>
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/black</item>
-
-        <item name="android:statusBarColor">@color/white</item>
-
-        <item name="android:windowLightStatusBar">true</item>
     </style>
+
 </resources>

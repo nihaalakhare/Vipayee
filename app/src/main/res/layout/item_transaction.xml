@@ -26,7 +26,7 @@
                 android:id="@+id/viewIconBg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:drawable/btn_default"
+                android:background="@drawable/rounded_circle"
                 android:backgroundTint="#FFF55F" /> <ImageView
             android:id="@+id/ivArrow"
             android:layout_width="28dp"

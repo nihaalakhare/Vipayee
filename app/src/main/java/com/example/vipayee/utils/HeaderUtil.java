@@ -48,7 +48,7 @@ public class HeaderUtil {
 //        headers.put("req_ts", String.valueOf(System.currentTimeMillis() / 1000));
 //        headers.put("device_info", deviceInfo);
 //
-//        // 🔴 IMPORTANT
+//        // IMPORTANT
 //        headers.put("Content-Type", "text/plain");
 //        headers.put("Accept", "application/json");
 //

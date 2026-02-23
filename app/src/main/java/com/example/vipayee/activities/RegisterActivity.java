@@ -2,12 +2,15 @@ package com.example.vipayee.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.speech.tts.TextToSpeech;
+import androidx.annotation.NonNull;
 
 import com.example.vipayee.R;
+import com.example.vipayee.manager.RegistrationManager;
 import com.example.vipayee.utils.BaseActivity;
 import com.example.vipayee.utils.SessionManager;
 import com.google.android.material.textfield.TextInputEditText;
@@ -15,15 +18,27 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends BaseActivity {
 
+    private static final String TAG = "REGISTER_ACTIVITY";
+
     private TextInputEditText etMobile, etCustId;
     private TextInputLayout tilMobile, tilCustId;
     private Button btnContinue;
+    private TextToSpeech tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login);
 
+        initViews();
+        setupListeners();
+    }
+    private void speak(String msg) {
+        if (tts != null) {
+            tts.speak(msg, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID");
+        }
+    }
+    private void initViews() {
         tilMobile = findViewById(R.id.tilMobile);
         tilCustId = findViewById(R.id.tilCustId);
 
@@ -31,10 +46,12 @@ public class RegisterActivity extends BaseActivity {
         etCustId = findViewById(R.id.etCustId);
 
         btnContinue = findViewById(R.id.btnContinue);
+    }
 
+    private void setupListeners() {
         btnContinue.setOnClickListener(v -> {
             if (validateInputs()) {
-                proceedNext();
+                verifyMobileWithServer();
             }
         });
     }
@@ -68,15 +85,47 @@ public class RegisterActivity extends BaseActivity {
         return true;
     }
 
-    private void proceedNext() {
+    private void verifyMobileWithServer() {
 
         String mobile = etMobile.getText().toString().trim();
         String custId = etCustId.getText().toString().trim();
 
-        new SessionManager(this)
-                .saveLoginData(mobile, custId, "0");
+        Log.d(TAG, "Verifying mobile: " + mobile);
 
-        startActivity(new Intent(this, MpinActivity.class));
-        finish();
+        RegistrationManager manager =
+                new RegistrationManager(this);
+
+        manager.verifyMobile(mobile, custId,
+                new RegistrationManager.RegistrationCallback() {
+
+                    @Override
+                    public void onSuccess() {
+
+                        Log.d(TAG, "Mobile verification success");
+
+                        // Save data for next steps
+                        new SessionManager(RegisterActivity.this)
+                                .saveLoginData(mobile, custId, "0");
+
+                        // Move to next step (for now MPIN)
+                        startActivity(
+                                new Intent(RegisterActivity.this,
+                                        RegistrationOtpActivity.class)
+                        );
+
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(@NonNull String message) {
+
+                        Log.e(TAG, "Verification failed: " + message);
+
+                        // Show error in UI
+                        tilMobile.setError(message);
+
+                        speak("Verification failed");
+                    }
+                });
     }
 }

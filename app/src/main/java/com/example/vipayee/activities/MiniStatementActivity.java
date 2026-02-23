@@ -91,7 +91,7 @@ public class MiniStatementActivity extends BaseActivity {
 
             // ---- Plain payload ----
             JSONObject payload = new JSONObject();
-            payload.put("acc_no", AppConstants.ACC_NO);
+            payload.put("acc_no", session.getPrimaryAccNo());
 
             // ---- Encrypt ----
             String encrypted = GCMUtil.encrypt(

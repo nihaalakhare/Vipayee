@@ -31,6 +31,6 @@ public class PaymentSuccessActivity extends BaseActivity {
 
         // ✅ Clear transaction data after success
         session.clearUpiDetails();
-        session.clearLastTxnAmount();
+        session.clearTransactionData();
     }
 }

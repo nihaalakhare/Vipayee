@@ -131,8 +131,12 @@ public class EnterAmountActivity extends BaseActivity {
         }
     }
 
-    private String getBrailleDigit(String p) {
-        switch (p) {
+    private String getBrailleDigit(String pattern) {
+
+        switch (pattern) {
+
+            // Numbers 1–9 and 0 (Braille 4-dot mapping)
+
             case "1000": return "1";
             case "1100": return "2";
             case "1010": return "3";
@@ -143,10 +147,14 @@ public class EnterAmountActivity extends BaseActivity {
             case "1101": return "8";
             case "0110": return "9";
             case "0111": return "0";
-            case "0011": return "."; // Dots 3 and 4 for decimal
+
+            // Decimal point (example: dots 3 + 4)
+            case "0011": return ".";
+
             default: return "";
         }
     }
+
 
     private void handlePaymentAction() {
         String amount = amountInput.toString().trim();

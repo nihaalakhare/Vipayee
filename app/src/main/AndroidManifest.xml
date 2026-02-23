@@ -29,8 +29,12 @@
         <activity android:name=".activities.GenerateQrActivity"/>
         <activity android:name=".activities.EnterAmountActivity"/>
         <activity android:name=".activities.EnterTpinActivity" />
+        <activity android:name=".activities.ResetMpinActivity"/>
+        <activity android:name=".activities.RegistrationOtpActivity"/>
         <activity android:name=".activities.PaymentSuccessActivity" />
-
+        <activity android:name=".activities.CreateProfileActivity"/>
+        <activity android:name=".activities.RegistrationGenerateMpinActivity"/>
+        <activity android:name=".activities.RegistrationGenerateTpinActivity"/>
         <activity android:name=".activities.ScanQrActivity"
             android:screenOrientation="portrait"
             android:exported="false"

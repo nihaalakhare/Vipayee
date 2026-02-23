@@ -1,8 +1,9 @@
 package com.example.vipayee.activities;
 
-import static com.example.vipayee.AppConstants.ACC_NO;
+
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
@@ -12,9 +13,6 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.vipayee.AppConstants;
 import com.example.vipayee.R;
 import com.example.vipayee.api.ApiClient;
@@ -128,6 +126,7 @@ public class BalanceMpinActivity extends BaseActivity {
             case "1001": return "5";
             case "1110": return "6";
             case "1111": return "7";
+            
             case "1101": return "8";
             case "0110": return "9";
             case "0111": return "0";
@@ -141,7 +140,7 @@ public class BalanceMpinActivity extends BaseActivity {
             String authToken = session.getAuthToken();
 
             JSONObject payload = new JSONObject();
-            payload.put("acc_no", ACC_NO);
+            payload.put("acc_no", session.getPrimaryAccNo());
 
             String encrypted = GCMUtil.encrypt(
                     payload.toString(),
@@ -251,7 +250,9 @@ public class BalanceMpinActivity extends BaseActivity {
 
     private void vibrate() {
         if (vibrator != null) {
-            vibrator.vibrate(VibrationEffect.createOneShot(50, 100));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(50, 100));
+            }
         }
     }
 
