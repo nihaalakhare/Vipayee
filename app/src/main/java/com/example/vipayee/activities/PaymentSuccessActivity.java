@@ -20,7 +20,7 @@ public class PaymentSuccessActivity extends BaseActivity {
 
         SessionManager session = new SessionManager(this);
 
-        // 🔹 Prefer session-stored amount
+        //  Prefer session-stored amount
         String amount = session.getLastTxnAmount();
 
         if (amount == null || amount.isEmpty()) {
@@ -29,7 +29,7 @@ public class PaymentSuccessActivity extends BaseActivity {
 
         tvSuccess.setText("Payment Successful\n₹" + amount);
 
-        // ✅ Clear transaction data after success
+        // Clear transaction data after success
         session.clearUpiDetails();
         session.clearTransactionData();
     }
