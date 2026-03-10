@@ -10,7 +10,7 @@ import com.example.vipayee.utils.BaseActivity;
 
 public class TransactionOptionActivity extends BaseActivity {
 
-    private GestureDetector gestureDetector;
+    private GestureDetector ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
