@@ -141,7 +141,7 @@ public class ScanQrActivity extends BaseActivity {
 
         if (pa != null && !pa.isEmpty()) {
 
-            // ✅ STORE UPI DETAILS FOR FUTURE USE
+            //  STORE UPI DETAILS FOR FUTURE USE
             sessionManager.saveUpiDetails(pa, pn != null ? pn : "");
 
             Intent intent = new Intent(this, EnterAmountActivity.class);
