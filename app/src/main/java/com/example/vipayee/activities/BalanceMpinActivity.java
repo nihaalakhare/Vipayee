@@ -358,7 +358,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //                return;
 //            }
 //
-//            // 🔹 1. PLAIN PAYLOAD (MATCH POSTMAN EXACTLY)
+//            //  1. PLAIN PAYLOAD (MATCH POSTMAN EXACTLY)
 //            JSONObject payload = new JSONObject();
 //            payload.put("acc_no", "016100100006637"); // ONLY THIS
 //
@@ -381,7 +381,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            Log.d(TAG, "REQUEST BODY: " + wrapper);
 //
-//            // 🧾 4. HEADERS (ALREADY CORRECT)
+//            //  4. HEADERS (ALREADY CORRECT)
 //            Map<String, String> headers = HeaderUtil.baseHeaders(
 //                    session.getDeviceInfo(),
 //                    AppConstants.getApiKey()
@@ -393,7 +393,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            Log.d("HEADERS_DEBUG", headers.toString());
 //
-//            // 🔁 5. API CALL
+//            // 5. API CALL
 //            ApiClient.create()
 //                    .balanceEnquiry(headers, body)
 //                    .enqueue(new Callback<ResponseBody>() {
@@ -443,7 +443,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //                return;
 //            }
 //
-//            // 🔓 Decrypt
+//            //  Decrypt
 //            String decrypted = AESGCMUtil.decrypt(
 //                    encryptedResp,
 //                    AppConstants.getSecretKeyBytes()
@@ -453,14 +453,14 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            JSONObject data = new JSONObject(decrypted);
 //
-//            // 🔹 Navigate JSON correctly
+//            // Navigate JSON correctly
 //            JSONObject responseObj = data.optJSONObject("response");
 //            if (responseObj == null) {
 //                tvBalance.setText("Invalid balance response");
 //                return;
 //            }
 //
-//            // 🔹 Get Table array
+//            //  Get Table array
 //            if (!responseObj.has("Table")) {
 //                tvBalance.setText("Balance not available");
 //                return;
@@ -474,7 +474,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            Log.d(TAG, "BALANCE TEXT = " + balanceText);
 //
-//            // 🔹 Extract Withdrawable Balance from string
+//            //  Extract Withdrawable Balance from string
 //            String withdrawable = extractWithdrawableBalance(balanceText);
 //
 //            if (withdrawable == null) {
@@ -579,7 +579,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //                return;
 //            }
 //
-//            // 🔹 1. PLAIN PAYLOAD (MATCH POSTMAN EXACTLY)
+//            //  1. PLAIN PAYLOAD (MATCH POSTMAN EXACTLY)
 //            JSONObject payload = new JSONObject();
 //            payload.put("acc_no", "016100100006637"); // ONLY THIS
 //
@@ -602,7 +602,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            Log.d(TAG, "REQUEST BODY: " + wrapper);
 //
-//            // 🧾 4. HEADERS (ALREADY CORRECT)
+//            // 4. HEADERS (ALREADY CORRECT)
 //            Map<String, String> headers = HeaderUtil.baseHeaders(
 //                    session.getDeviceInfo(),
 //                    AppConstants.getApiKey()
@@ -614,7 +614,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            Log.d("HEADERS_DEBUG", headers.toString());
 //
-//            // 🔁 5. API CALL
+//            // 5. API CALL
 //            ApiClient.create()
 //                    .balanceEnquiry(headers, body)
 //                    .enqueue(new Callback<ResponseBody>() {
@@ -664,7 +664,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //                return;
 //            }
 //
-//            // 🔓 Decrypt
+//            // Decrypt
 //            String decrypted = AESGCMUtil.decrypt(
 //                    encryptedResp,
 //                    AppConstants.getSecretKeyBytes()
@@ -674,14 +674,14 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            JSONObject data = new JSONObject(decrypted);
 //
-//            // 🔹 Navigate JSON correctly
+//            //  Navigate JSON correctly
 //            JSONObject responseObj = data.optJSONObject("response");
 //            if (responseObj == null) {
 //                tvBalance.setText("Invalid balance response");
 //                return;
 //            }
 //
-//            // 🔹 Get Table array
+//            //  Get Table array
 //            if (!responseObj.has("Table")) {
 //                tvBalance.setText("Balance not available");
 //                return;
@@ -695,7 +695,7 @@ public class BalanceMpinActivity extends BaseActivity {
 //
 //            Log.d(TAG, "BALANCE TEXT = " + balanceText);
 //
-//            // 🔹 Extract Withdrawable Balance from string
+//            //  Extract Withdrawable Balance from string
 //            String withdrawable = extractWithdrawableBalance(balanceText);
 //
 //            if (withdrawable == null) {
