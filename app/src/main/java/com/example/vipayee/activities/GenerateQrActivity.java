@@ -75,15 +75,15 @@ public class GenerateQrActivity extends BaseActivity {
                 }
             }
 
-            // 🔹 Load Logo
+            // Load Logo
             Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.bgmain);
 
-            // 🔹 Scale logo (20% of QR size)
+            // Scale logo (20% of QR size)
             int logoSize = size / 5;
             Bitmap scaledLogo = Bitmap.createScaledBitmap(
                     logo, logoSize, logoSize, false);
 
-            // 🔹 Combine QR + Logo
+            //  Combine QR + Logo
             finalQrBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(finalQrBitmap);
             canvas.drawBitmap(qrBitmap, 0, 0, null);
@@ -100,14 +100,14 @@ public class GenerateQrActivity extends BaseActivity {
         }
     }
 
-    // 🔹 Menu
+    //  Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_share_qr, menu);
         return true;
     }
 
-    // 🔹 Share QR
+    //  Share QR
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_share) {
@@ -183,7 +183,7 @@ public class GenerateQrActivity extends BaseActivity {
 //        qrImage = findViewById(R.id.ivQr);
 //        tvUpiId = findViewById(R.id.tvUpi);
 //
-//        // 🔹 Sample UPI Data (can be dynamic)
+//        // Sample UPI Data (can be dynamic)
 //        String upiId = AppConstants.UPI_ID;
 //        String name = AppConstants.UPI_NAME;
 //
