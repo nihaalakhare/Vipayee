@@ -85,7 +85,7 @@ public class CreateProfileActivity extends BaseActivity {
 
             Log.d(TAG, "RAW PAYLOAD: " + payload);
 
-            // 🔐 Encrypt
+            // Encrypt
             String encrypted = GCMUtil.encrypt(
                     payload.toString(),
                     AppConstants.getSecretKeyBytes()
@@ -171,7 +171,7 @@ public class CreateProfileActivity extends BaseActivity {
             intent.putExtra("otp", otp);
             startActivity(intent);
             finish();
-            // 🔥 Move to MPIN setup
+            //  Move to MPIN setup
 //            Intent intent = new Intent(
 //                    this,
 //                    MpinSetupActivity.class
