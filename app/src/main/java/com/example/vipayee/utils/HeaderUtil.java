@@ -6,10 +6,6 @@ import java.util.UUID;
 
 public class HeaderUtil {
 
-    /**
-     * Base headers required by ALL APIs
-     * ❗ DO NOT SET Content-Type HERE
-     */
     public static Map<String, String> baseHeaders(
             String deviceInfo,
             String apiKey
