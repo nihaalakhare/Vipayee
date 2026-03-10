@@ -114,7 +114,7 @@ public class ResetMpinActivity extends BaseActivity {
             payload.put("custid", custId);
             payload.put("otp_purpose_code", "FRGT_MPIN");
 
-            Log.d(TAG, "📦 RAW PAYLOAD: " + payload);
+            Log.d(TAG, "RAW PAYLOAD: " + payload);
 
             String encrypted = GCMUtil.encrypt(
                     payload.toString(),
@@ -159,18 +159,18 @@ public class ResetMpinActivity extends BaseActivity {
     private void handleResponse(Response<ResponseBody> response) {
         try {
             if (!response.isSuccessful() || response.body() == null) {
-                Log.e(TAG, "❌ generate_pin unsuccessful");
+                Log.e(TAG, "generate_pin unsuccessful");
                 speak("Failed to reset MPIN");
                 return;
             }
 
             String raw = response.body().string();
-            Log.d(TAG, "📨 generate_pin RAW RESPONSE: " + raw);
+            Log.d(TAG, " generate_pin RAW RESPONSE: " + raw);
 
             JSONObject wrapper = new JSONObject(raw);
 
             if (wrapper.optInt("response_code") != 1) {
-                Log.e(TAG, "❌ generate_pin ERROR: " + wrapper);
+                Log.e(TAG, " generate_pin ERROR: " + wrapper);
                 speak(wrapper.optString("error_message", "MPIN reset failed"));
                 return;
             }
@@ -180,13 +180,13 @@ public class ResetMpinActivity extends BaseActivity {
                     AppConstants.getSecretKeyBytes()
             );
 
-            Log.d(TAG, "🔓 generate_pin DECRYPTED RESPONSE: " + decrypted);
+            Log.d(TAG, " generate_pin DECRYPTED RESPONSE: " + decrypted);
 
             speak("M pin reset successful");
             startActivity(new Intent(this, MpinActivity.class));
 
         } catch (Exception e) {
-            Log.e(TAG, "💥 generate_pin RESPONSE ERROR", e);
+            Log.e(TAG, " generate_pin RESPONSE ERROR", e);
             speak("Something went wrong");
         }
     }
