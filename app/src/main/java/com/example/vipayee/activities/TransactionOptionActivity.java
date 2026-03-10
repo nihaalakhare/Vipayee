@@ -63,4 +63,4 @@ public class TransactionOptionActivity extends BaseActivity {
             return false;
         }
     }
-
+}
