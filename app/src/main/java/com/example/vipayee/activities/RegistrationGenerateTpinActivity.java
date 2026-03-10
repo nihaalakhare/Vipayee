@@ -177,7 +177,7 @@ public class RegistrationGenerateTpinActivity extends BaseActivity {
 
             Log.d(TAG, "TPIN DECRYPTED: " + decrypted);
 
-            // 🔥 Registration Complete
+            // Registration Complete
             session.setRegistered(true);
 
             // Move to login screen
