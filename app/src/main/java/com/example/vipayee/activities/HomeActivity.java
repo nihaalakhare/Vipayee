@@ -165,13 +165,13 @@ public class HomeActivity extends BaseActivity {
 
         try {
 
-            // ✅ Step 1: Basic HTTP validation
+            // Step 1: Basic HTTP validation
             if (!response.isSuccessful() || response.body() == null) {
                 Log.e("HOME", "Profile API failed. Code: " + response.code());
                 return;
             }
 
-            // ✅ Step 2: Read raw response
+            //  Step 2: Read raw response
             String raw = response.body().string();
             Log.d("HOME", "PROFILE RAW: " + raw);
 
@@ -180,7 +180,7 @@ public class HomeActivity extends BaseActivity {
                 return;
             }
 
-            // ✅ Step 3: Parse outer wrapper
+            // Step 3: Parse outer wrapper
             JSONObject wrapper = new JSONObject(raw);
 
             String outerResponseCode =
@@ -191,7 +191,7 @@ public class HomeActivity extends BaseActivity {
                 return;
             }
 
-            // ✅ Step 4: Extract encrypted response
+            // Step 4: Extract encrypted response
             String encryptedResponse =
                     wrapper.optString("response", null);
 
@@ -202,7 +202,7 @@ public class HomeActivity extends BaseActivity {
                 return;
             }
 
-            // 🔐 Step 5: Decrypt AES response
+            // Step 5: Decrypt AES response
             String decrypted = GCMUtil.decrypt(
                     encryptedResponse,
                     AppConstants.getSecretKeyBytes()
@@ -210,7 +210,7 @@ public class HomeActivity extends BaseActivity {
 
             Log.d("HOME", "PROFILE DECRYPTED: " + decrypted);
 
-            // ✅ Step 6: Parse decrypted JSON
+            // Step 6: Parse decrypted JSON
             JSONObject decryptedRoot =
                     new JSONObject(decrypted);
 
@@ -222,14 +222,14 @@ public class HomeActivity extends BaseActivity {
                 return;
             }
 
-            // 🔥 IMPORTANT: Go inside response → profile
+            //  IMPORTANT: Go inside response → profile
             JSONObject responseObj =
                     decryptedRoot.getJSONObject("response");
 
             JSONObject profile =
                     responseObj.getJSONObject("profile");
 
-            // ✅ Step 7: Extract profile fields
+            // Step 7: Extract profile fields
             String profileId = profile.optString("profileid");
 //            String custName = profile.optString("cust_name");
             String clientType = profile.optString("client_type");
@@ -245,7 +245,7 @@ public class HomeActivity extends BaseActivity {
             String pan = account.optString("pan");
             String ifsc = account.optString("ifsc_code");
 
-            // ✅ Step 8: Save into SessionManager
+            // Step 8: Save into SessionManager
             SessionManager session =
                     new SessionManager(this);
 
@@ -259,10 +259,10 @@ public class HomeActivity extends BaseActivity {
                     orgElement
             );
 
-            Log.d("HOME", "✅ Profile saved successfully");
+            Log.d("HOME", "Profile saved successfully");
 
         } catch (Exception e) {
-            Log.e("HOME", "❌ Profile parse error", e);
+            Log.e("HOME",  Profile parse error", e);
         }
     }
     private void resetIdleTimer() {
