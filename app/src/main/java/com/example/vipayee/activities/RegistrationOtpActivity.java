@@ -66,7 +66,7 @@ public class RegistrationOtpActivity extends BaseActivity {
 
     /* ===================== GENERATE OTP ===================== */
     private void showMessage(String message) {
-        Log.d(TAG, "📢 " + message);
+        Log.d(TAG, message);
     }
 
     private void generateOtp() {
@@ -267,7 +267,7 @@ private void verifyOtp(String otp) {
         payload.put("otp", otp);
         payload.put("purpose_code", "MBANK_REG");
 
-        Log.d(TAG, "📦 VERIFY OTP RAW PAYLOAD: " + payload);
+        Log.d(TAG, "VERIFY OTP RAW PAYLOAD: " + payload);
 
         String encrypted = GCMUtil.encrypt(
                 payload.toString(),
@@ -292,7 +292,7 @@ private void verifyOtp(String otp) {
         headers.put("auth_token", "");   // registration flow → empty
         HeaderUtil.addSecurityHeaders(headers);
 
-        Log.d(TAG, "📤 VERIFY OTP HEADERS: " + headers);
+        Log.d(TAG, " VERIFY OTP HEADERS: " + headers);
 
         ApiClient.create().verifyOtpForReg(headers, body)
                 .enqueue(new Callback<ResponseBody>() {
@@ -310,13 +310,13 @@ private void verifyOtp(String otp) {
                             @NonNull Call<ResponseBody> call,
                             @NonNull Throwable t) {
 
-                        Log.e(TAG, "🚨 VERIFY OTP NETWORK FAILED", t);
+                        Log.e(TAG, "VERIFY OTP NETWORK FAILED", t);
                         showMessage("Network error");
                     }
                 });
 
     } catch (Exception e) {
-        Log.e(TAG, "💥 VERIFY OTP EXCEPTION", e);
+        Log.e(TAG, " VERIFY OTP EXCEPTION", e);
         showMessage("Unexpected error occurred");
     }
 }
@@ -327,13 +327,13 @@ private void verifyOtp(String otp) {
 
             if (!response.isSuccessful() || response.body() == null) {
 
-                Log.e(TAG, "❌ VERIFY OTP unsuccessful response");
+                Log.e(TAG, "VERIFY OTP unsuccessful response");
                 showMessage("Server error: " + response.code());
                 return;
             }
 
             String raw = response.body().string();
-            Log.d(TAG, "📨 VERIFY OTP RAW RESPONSE: " + raw);
+            Log.d(TAG, " VERIFY OTP RAW RESPONSE: " + raw);
 
             if (raw == null || raw.trim().isEmpty()) {
 
@@ -352,7 +352,7 @@ private void verifyOtp(String otp) {
                         wrapper.optString("error_message",
                                 "OTP verification failed");
 
-                Log.e(TAG, "❌ OTP verification failed: " + errorMessage);
+                Log.e(TAG, "OTP verification failed: " + errorMessage);
                 showMessage(errorMessage);
                 return;
             }
@@ -366,12 +366,12 @@ private void verifyOtp(String otp) {
                         AppConstants.getSecretKeyBytes()
                 );
 
-                Log.d(TAG, "🔓 VERIFY OTP DECRYPTED RESPONSE: " + decrypted);
+                Log.d(TAG, "VERIFY OTP DECRYPTED RESPONSE: " + decrypted);
             }
 
-            Log.d(TAG, "✅ OTP VERIFIED SUCCESSFULLY");
+            Log.d(TAG, "OTP VERIFIED SUCCESSFULLY");
 
-            // 🔥 Next Step (for now just log)
+            //  Next Step (for now just log)
             showMessage("OTP verified successfully");
 
 
@@ -390,7 +390,7 @@ private void verifyOtp(String otp) {
 
         } catch (Exception e) {
 
-            Log.e(TAG, "💥 VERIFY OTP RESPONSE ERROR", e);
+            Log.e(TAG, " VERIFY OTP RESPONSE ERROR", e);
             showMessage("Unexpected error occurred");
         }
     }
