@@ -51,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         SessionManager session = new SessionManager(this);
         session.setLoggedIn(false);
 
-        // 🔊 INIT TTS ONLY FOR EXPIRY
+        // INIT TTS ONLY FOR EXPIRY
         tts = new TextToSpeech(this, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 tts.setLanguage(new Locale("en", "IN"));
@@ -64,7 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
 
-        // ⏳ Delay so speech is heard
+        // Delay so speech is heard
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
             if (tts != null) {
