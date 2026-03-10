@@ -300,10 +300,10 @@ public class MpinActivity extends AppCompatActivity {
             Log.d(XML_TAG, xml);
             Log.d(XML_TAG, "=================================================");
 
-            // 🔊 Voice feedback
+            // Voice feedback
             speak("Transaction M pin verified");
 
-            // 👉 After transaction MPIN verification
+            // After transaction MPIN verification
             startActivity(new Intent(
                     this,
                     PaymentSuccessActivity.class));
