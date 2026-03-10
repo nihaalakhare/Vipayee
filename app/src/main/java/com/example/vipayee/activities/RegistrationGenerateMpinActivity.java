@@ -175,7 +175,7 @@ public class RegistrationGenerateMpinActivity extends BaseActivity {
 
             Log.d(TAG, "MPIN DECRYPTED: " + decrypted);
 
-            // 🔥 Move to TPIN setup next
+            //  Move to TPIN setup next
              startActivity(new Intent(this, RegistrationGenerateTpinActivity.class));
 
         } catch (Exception e) {
